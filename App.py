@@ -3,10 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 st.write("""
-# My first app
-Hello **world!**
-
-![img](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMDmITYUL3-dQiE99pPRG-f1gLO76Wh_UjEXTSvx0RiNdbvu_d4-L5OR43qlce8eNfeHld83WgawlwjNkQvWM7cA)
+# 천하제일 점심 자랑 대회 
+Hello **점심!**
 """)
 
 df = pd.read_csv('note/menu.csv')
@@ -19,7 +17,10 @@ not_na_df = melted_df[~melted_df['menu'].isin(['-','x','<결석>'])]
 gdf = not_na_df.groupby('ename')['menu'].count().reset_index()
 #gdf.plot(x="ename", y="menu", kind="bar")
 
+gdf
+
 # 📊 Matplotlib로 바 차트 그리기
+# https://docs.streamlit.io/develop/api-reference/charts/st.pyplot
 fig, ax = plt.subplots()
 gdf.plot(x="ename", y="menu", kind="bar", ax=ax)
 st.pyplot(fig)
