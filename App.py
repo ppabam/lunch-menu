@@ -3,12 +3,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import psycopg
 
+# https://docs.streamlit.io/develop/concepts/connections/secrets-management
 DB_CONFIG = {
-    "user": "sunsin",
-    "dbname": "sunsindb",
-    "password": "mysecretpassword",
-    "host": "localhost",
-    "port": "5432"
+    "user": st.secrets["db_username"],
+    "dbname": st.secrets["db_name"],
+    "password": st.secrets["db_password"],
+    "host": st.secrets["db_host"],
+    "port": st.secrets["db_port"] 
 }
 
 def get_connection():
