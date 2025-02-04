@@ -31,6 +31,8 @@ if isPress:
            "INSERT INTO lunch_menu (menu_name, member_name, dt) VALUES (%s, %s, %s);",
             (menu_name, member_name, dt)
         )
+        conn.commit()
+        cursor.close()
 
         st.success(f"버튼{isPress}:{menu_name},{member_name},{dt}")
     else:
