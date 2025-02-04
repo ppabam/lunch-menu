@@ -2,11 +2,24 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-st.write("""
-# 천하제일 점심 자랑 대회 
-Hello **점심!**
-""")
+st.title("순신점심기록장")
+st.subheader("입력")
+menu_name = st.text_input("메뉴 이름", placeholder="예: 김치찌게")
+member_name = st.text_input("먹은 사람", value="TOM")
+dt = st.date_input("얌얌 날짜")
 
+
+
+
+
+
+
+
+
+
+
+
+st.subheader("통계")
 df = pd.read_csv('note/menu.csv')
 
 start_idx = df.columns.get_loc('2025-01-07')
