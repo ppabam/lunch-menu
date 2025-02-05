@@ -30,8 +30,10 @@ def insert_menu(menu_name, member_name, dt):
         conn.commit()
         cursor.close()
         conn.close()
+        return True
     except Exception as e:
         print(f"Exception:{e}")
+        return False 
 
 
 st.title(f"순신점심기록장!{db_name}")
@@ -45,8 +47,10 @@ isPress = st.button("메뉴 저장")
 
 if isPress:
     if menu_name and member_name and dt:
-        insert_menu(menu_name, member_name, dt)
-        st.success(f"입력성공")
+        if insert_menu(menu_name, member_name, dt):
+            st.success(f"입력성공")
+        else:
+            st.error(f"입력실패")
     else:
         st.warning(f"모든 값을 입력해주세요!")
 
