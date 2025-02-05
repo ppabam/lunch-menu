@@ -41,6 +41,10 @@ st.title(f"순신점심기록장!{db_name}")
 st.subheader("입력")
 menu_name = st.text_input("메뉴 이름", placeholder="예: 김치찌게")
 member_name = st.text_input("먹은 사람", value="TOM")
+option = st.selectbox(
+    "먹은 사람 선택",
+    ("TOM", "KIM", "LEE"),
+)
 dt = st.date_input("얌얌 날짜")
 
 isPress = st.button("메뉴 저장")
