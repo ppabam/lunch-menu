@@ -66,13 +66,6 @@ select_df = pd.DataFrame(rows, columns=['menu','ename','dt'])
 select_df
 
 st.subheader("통계")
-df = pd.read_csv('note/menu.csv')
-
-start_idx = df.columns.get_loc('2025-01-07')
-melted_df = df.melt(id_vars=['ename'], value_vars=df.columns[start_idx:-2], 
-                     var_name='dt', value_name='menu')
-
-not_na_df = melted_df[~melted_df['menu'].isin(['-','x','<결석>'])]
 
 #gdf = not_na_df.groupby('ename')['menu'].count().reset_index()
 gdf = select_df.groupby('ename')['menu'].count().reset_index()
@@ -89,4 +82,16 @@ st.pyplot(fig)
 # TODO
 # CSV 로드해서 한번에 다 디비에 INSERT 하는거
 st.subheader("벌크 인서트")
-st.button("한방에 인서트")
+if st.button("한방에 인서트"):
+    df = pd.read_csv('note/menu.csv')
+    start_idx = df.columns.get_loc('2025-01-07')
+    melted_df = df.melt(id_vars=['ename'], value_vars=df.columns[start_idx:-2], 
+                     var_name='dt', value_name='menu')
+    
+    not_na_df = melted_df[~melted_df['menu'].isin(['-','x','<결석>'])]
+
+    for _, row in not_na_df.iterrows():
+        insert_menu(row['menu'], row['ename'], row['dt'])
+
+    st.success(f"벌크인서트 성공")
+
