@@ -29,7 +29,7 @@ def insert_menu(menu_name, member_name, dt):
     cursor.close()
     conn.close()
 
-st.title("순신점심기록장")
+st.title("순신점심기록장!")
 
 st.subheader("입력")
 menu_name = st.text_input("메뉴 이름", placeholder="예: 김치찌게")
