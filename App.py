@@ -117,8 +117,13 @@ if st.button("한방에 인서트"):
     
     not_na_df = melted_df[~melted_df['menu'].isin(['-','x','<결석>'])]
 
+    # TODO 아래 메시지를 성공/실패 구분
+    # 모두 성공했으면 성공 / 모두 성공하지 않은 경우는
     for _, row in not_na_df.iterrows():
-        insert_menu(row['menu'], row['ename'], row['dt'])
-
-    st.success(f"벌크인서트 성공")
+        m_id = members[row['ename']]
+        insert_menu(row['menu'], m_id, row['dt'])
+    # IF 총건수 == 성공건수가 같으면, 또는 실패가 없으면 st.success
+        # st.success(f"벌크인서트 성공")
+    # ELES
+        # 에러메시지 출력 -> 총건 00 중 00 실패
 
