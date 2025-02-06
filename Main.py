@@ -5,6 +5,8 @@ import psycopg
 import os
 from dotenv import load_dotenv
 
+st.sidebar.markdown("# 🏡 Main")
+
 # https://docs.streamlit.io/develop/concepts/connections/secrets-management
 load_dotenv()
 db_name = os.getenv("DB_NAME")
