@@ -5,6 +5,8 @@ import psycopg
 import os
 from dotenv import load_dotenv
 
+members = {"SEO": 5, "TOM": 1, "cho": 2, "hyun": 3, "nuni": 10, "JERRY": 4, "jacob": 7, "jiwon": 6, "lucas": 9, "heejin": 8}
+
 # https://docs.streamlit.io/develop/concepts/connections/secrets-management
 load_dotenv()
 db_name = os.getenv("DB_NAME")
@@ -19,13 +21,14 @@ DB_CONFIG = {
 def get_connection():
     return psycopg.connect(**DB_CONFIG)
 
-def insert_menu(menu_name, member_name, dt):
+def insert_menu(menu_name, member_id, dt):
     try:
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO lunch_menu (menu_name, member_name, dt) VALUES (%s, %s, %s);",
-            (menu_name, member_name, dt)
+            """INSERT INTO lunch_menu (menu_name, member_name, dt) 
+            VALUES (%s, %s, %s);""",
+            (menu_name, member_id, dt)
             )
         conn.commit()
         cursor.close()
@@ -42,15 +45,19 @@ st.subheader("입력")
 menu_name = st.text_input("메뉴 이름", placeholder="예: 김치찌게")
 member_name = st.selectbox(
     "먹은 사람",
-    ("TOM", "KIM", "LEE"),
+    options=list(members.keys()),
+    index=list(members.keys()).index('TOM')
 )
+member_id = members[member_name]
+
 dt = st.date_input("얌얌 날짜")
 
 isPress = st.button("메뉴 저장")
 
 if isPress:
-    if menu_name and member_name and dt:
-        if insert_menu(menu_name, member_name, dt):
+    # member_name 을 member_id 로 바꾸어서 DB 에 id 가 insert 되록 해주세요
+    if menu_name and member_id and dt:
+        if insert_menu(menu_name, member_id, dt):
             st.success(f"입력성공")
         else:
             st.error(f"입력실패")
