@@ -26,7 +26,7 @@ def insert_menu(menu_name, member_id, dt):
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute(
-            """INSERT INTO lunch_menu (menu_name, member_name, dt) 
+            """INSERT INTO lunch_menu (menu_name, member_id, dt) 
             VALUES (%s, %s, %s);""",
             (menu_name, member_id, dt)
             )
